@@ -3,9 +3,19 @@ package oop.inheritance.data;
 import java.time.LocalDateTime;
 
 public class Transaction {
-    private int amountInCents;
-    private Card card;
-    private LocalDateTime localDateTime;
+    private final int amountInCents;
+    private final Card card;
+    private final LocalDateTime localDateTime;
+
+    private Transaction(int amountInCents, Card card, LocalDateTime localDateTime) {
+        this.amountInCents = amountInCents;
+        this.card = card;
+        this.localDateTime = localDateTime;
+    }
+
+    public TransactionBuilder builder(){
+        return new TransactionBuilder();
+    }
 
     public int getAmountInCents() {
         return amountInCents;
