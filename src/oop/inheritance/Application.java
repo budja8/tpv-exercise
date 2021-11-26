@@ -58,10 +58,10 @@ public class Application {
 
     public void doSale() {
 
-        IngenicoCardSwipper cardSwipper = new IngenicoCardSwipper().getInstance();
-        IngenicoChipReader chipReader = new IngenicoChipReader().getInstance();
-        IngenicoDisplay ingenicoDisplay = new IngenicoDisplay().getInstance();
-        IngenicoKeyboard ingenicoKeyboard = new IngenicoKeyboard().getInstance();
+        CardSwipper cardSwipper = abstractFactory.getCardSwipper();
+        ChipReader chipReader = abstractFactory.getChipReader();
+        Display display = abstractFactory.getDisplay();
+        Keyboard keyboard = abstractFactory.getKeyboard();
 
         Card card;
 
@@ -72,10 +72,10 @@ public class Application {
             }
         } while (card == null);
 
-        ingenicoDisplay.clear();
-        ingenicoDisplay.showMessage(5, 20, "Capture monto:");
+        display.clear();
+        display.showMessage(5, 20, "Capture monto:");
 
-        String amount = ingenicoKeyboard.get(); //Amount with decimal point as string
+        String amount = keyboard.get(); //Amount with decimal point as string
 
         Transaction transaction = new Transaction();
 
@@ -86,10 +86,10 @@ public class Application {
         TransactionResponse response = sendSale(transaction);
 
         if (response.isApproved()) {
-            ingenicoDisplay.showMessage(5, 25, "APROBADA");
+            display.showMessage(5, 25, "APROBADA");
             printReceipt(transaction, response.getHostReference());
         } else {
-            ingenicoDisplay.showMessage(5, 25, "DENEGADA");
+            display.showMessage(5, 25, "DENEGADA");
         }
     }
 
