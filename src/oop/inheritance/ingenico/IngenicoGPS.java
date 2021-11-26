@@ -4,6 +4,23 @@ import oop.inheritance.data.Transaction;
 import oop.inheritance.data.TransactionResponse;
 
 public class IngenicoGPS {
+    private static volatile IngenicoGPS gps;
+
+    private IngenicoGPS(){
+
+    }
+
+    public static IngenicoGPS getGps(){
+        if(gps == null){
+            synchronized (IngenicoGPS.class){
+                if(gps == null){
+                    gps = new IngenicoGPS();
+                }
+            }
+        }
+        return gps;
+    }
+
     /**
      * Opens a connection using the GPS device
      *

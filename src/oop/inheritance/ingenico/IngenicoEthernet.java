@@ -4,7 +4,22 @@ import oop.inheritance.data.Transaction;
 import oop.inheritance.data.TransactionResponse;
 
 public class IngenicoEthernet {
+    private static volatile IngenicoEthernet ethernet;
 
+    private IngenicoEthernet(){
+
+    }
+
+    public static IngenicoEthernet getEthernet(){
+        if(ethernet == null){
+            synchronized (IngenicoEthernet.class){
+                if(ethernet == null){
+                    ethernet = new IngenicoEthernet();
+                }
+            }
+        }
+        return ethernet;
+    }
     /**
      * Opens a connection using the ethernet device
      *

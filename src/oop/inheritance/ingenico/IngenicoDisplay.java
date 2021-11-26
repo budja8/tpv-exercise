@@ -1,6 +1,22 @@
 package oop.inheritance.ingenico;
 
 public class IngenicoDisplay {
+    private static volatile IngenicoDisplay display;
+
+    private IngenicoDisplay(){
+
+    }
+
+    public static IngenicoDisplay getDisplay(){
+        if(display == null){
+            synchronized (IngenicoDisplay.class){
+                if(display == null){
+                    display = new IngenicoDisplay();
+                }
+            }
+        }
+        return display;
+    }
 
     /**
      * Prints a message to specied position
